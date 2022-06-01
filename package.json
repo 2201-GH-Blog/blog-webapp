@@ -1,7 +1,7 @@
 {
   "name": "intercode",
   "version": "2.0.0",
-  "description": "A web application to house intercode.blog",
+  "description": "A web application to house intercode.blog.",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
