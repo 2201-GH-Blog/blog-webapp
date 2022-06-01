@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "intercode",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A web application to house intercode.blog",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
