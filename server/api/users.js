@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const { models: { User }} = require('../db')
+const { verifyAdmin, verifyToken } = require('./security')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', verifyAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -17,9 +18,9 @@ router.get('/', async (req, res, next) => {
 })
 
 // '/:id'
-router.get('/:id', async (req, res, next) => {
+router.get('/profile', verifyToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.user.id)
     res.json(user)
   } catch (err) {
     next(err)
