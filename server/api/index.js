@@ -1,6 +1,7 @@
 const router = require('express').Router()
 module.exports = router
 
+
 router.use('/users', require('./users'))
 //router.use('/blogposts', require('./blogposts'))
 //router.use('/tags', require('./tags'))
