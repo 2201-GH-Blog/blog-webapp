@@ -3,7 +3,9 @@ const User = require("../db/models/User");
 const verifyAdmin = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log(token, "THIS IS THE TOKEN IN THE SECURITY MIDDLEWARE")
     const user = await User.findByToken(token);
+    console.log("THIS IS USER IN THE SECURITY MIDDLEWARE", user)
     req.user = user;
     if (!req.user.isAdmin) {
       return res.status(403).send("Permission denied");

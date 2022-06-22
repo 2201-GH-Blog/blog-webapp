@@ -14,13 +14,15 @@ export const setUsers = (users) => {
 
   export const fetchUsers = () => {
     return async (dispatch) => {
+      console.log("**** are we making it into the store? *****")
       try {
         const token = window.localStorage.getItem(TOKEN);
         const { data } = await axios.get('/api/users', {
           headers: {
-            authorization: token
+            "Authorization": token
           }
         });
+        console.log("DATA FROM USERS.JS", data)
         dispatch(setUsers(data));
       } catch (error) {
         console.log(error);
