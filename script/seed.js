@@ -1,6 +1,6 @@
 'use strict'
 
-const { db, models: { User, BlogPost, Comment, Subscription, Tag } } = require('../server/db')
+const { db, models: { User, BlogPost, Comment, Subscription, Tag, Author, Stack } } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -14,12 +14,14 @@ async function seed() {
   const users = await Promise.all([
     User.create({ username: 'codyRulz', firstName: 'cody', lastName: 'codyson', email: 'cody@cody.net', password: '123', isAdmin: true }),
     User.create({ username: 'murphyRulz', firstName: 'murphy', lastName: 'murphyson', email: 'murphy@murphy.net', password: '123' }),
-    User.create({ username: 'kroy94', firstName: 'Kelsey', lastName: 'Roy', email: 'kelseytylerroy@gmail.com', password: '123', isAdmin: true, bio: `Kelsey Roy is a Software Engineer who is seeking to implement socially conscious practices in the tech sphere. In her previous roles as a Data Analyst and Operations Manager, she helped Standvast–a transformative healthcare and ecommerce supply chain startup–innovate their fulfillment and supply chain processes through software and data driven insights. She also worked as a Project Management Consultant for an omnichannel retailer to implement a new Warehouse Management System that is integrated with Microsoft’s D365. These professional opportunities, in addition to a book she read in 2020 called Algorithms of Oppression, inspired her to transition her career to software engineering. Kelsey is devoted to a career working for mission-driven organizations with diverse and collaborative environments that make a positive difference in the world. Related to her passion for supporting DEI efforts in tech, she is also interested in the ethics surrounding AI, machine learning, and computing in general. Outside of tech she loves cooking for the people she loves and finding new places to explore in her community. She is currently based in Brooklyn, NY but will be taking her web development skills to Portland, OR in July 2022.`}),
+    User.create({ username: 'kroy94', firstName: 'Kelsey', lastName: 'Roy', email: 'kelseytylerroy@gmail.com', password: '123', isAdmin: true, bio: `Kelsey Roy is a Software Engineer who is seeking to implement socially conscious practices in the tech sphere. In her previous roles as a Data Analyst and Operations Manager, she helped Standvast–a transformative healthcare and ecommerce supply chain startup–innovate their fulfillment and supply chain processes through software and data driven insights. She also worked as a Project Management Consultant for an omnichannel retailer to implement a new Warehouse Management System that is integrated with Microsoft’s D365. These professional opportunities, in addition to a book she read in 2020 called Algorithms of Oppression, inspired her to transition her career to software engineering. Kelsey is devoted to a career working for mission-driven organizations with diverse and collaborative environments that make a positive difference in the world. Related to her passion for supporting DEI efforts in tech, she is also interested in the ethics surrounding AI, machine learning, and computing in general. Outside of tech she loves cooking for the people she loves and finding new places to explore in her community. She is currently based in Brooklyn, NY but will be taking her web development skills to Portland, OR in July 2022.` }),
     User.create({ username: 'dviglucci', firstName: 'Diana', lastName: 'Viglucci', email: 'dvigl86@gmail.com', password: '123', isAdmin: true, bio: `Diana Viglucci (they/them) is a full stack developer, community-builder, and lifelong learner. They like writing code that brings people joy, helps them learn something new, or that makes resources more accessible. Diana completed their technical training at the Grace Hopper Program, where they were best known for their Stackathon-winning rat tracker app. Prior to transitioning into tech, they worked in community-based nonprofit programs, supporting individuals and their families as they navigated mental health issues, career changes, and LGBTQ+ identity. A cum laude graduate of Cornell University, Diana finds joy in making art, spending time in nature, and turning off their phone for hours-long stretches. Their work is grounded in person-centered, trauma-informed, and intersectional perspectives - and always will be - because software is for people.` }),
     User.create({ username: 'Jessdonig', firstName: 'Jessica', lastName: 'Donig', email: 'jessdonig@gmail.com', password: '123', isAdmin: true, bio: `Jessica Donig (she/her) is a Fullstack software engineer with a background in social entrepreneurship. Prior to attending Grace Hopper, Jessica co-founded a nonprofit, worked as the first employee of a YC-backed startup, and conducted clinical research at Stanford University. From the time she entered the startup world in 2015, Jessica wanted to learn to code, but the lack of female representation in the field had made her hesitant to do so. Now that she has completed her coursework, Jessica is passionate about helping other nontraditional engineers—especially women—see themselves in tech.` }),
     User.create({ username: 'VioletCutler', firstName: 'Violet', lastName: 'Cutler', email: 'luminancesignal@gmail.com', password: '123', isAdmin: true, bio: `Violet Cutler (She/They) is a trans woman living in Philadelphia. She has been an artist and performer for more than a decade, recording videos on VHS and performing soundtracks to them on Saxophone and Synthesizer. She has also spent that time organizing DIY events in the queer and trans community and really values community building.She spent the last 4 years working in a food coop. She co-organized a successful union campaign when Covid struck. Despite this success, the dangers of the pandemic drove her to look for another way to support herself. In August of 2021, she quit her job and began studying to get into the Grace Hopper Program at Fullstack Academy. She graduated in April 2022 and looks forward to a career in Tech and Game Development. Her priorities moving forward are accessibility of the web and creating spaces in tech for other marginalized identities.` }),
     User.create({ username: 'MerleESelf', firstName: 'Merle', lastName: 'Self', email: 'merleself@gmail.com', password: '123', isAdmin: true, bio: `` }),
   ])
+
+  console.log(`seeded ${users.length} users`)
 
   // Creating Blog Posts
   const blogPosts = await Promise.all([
@@ -190,23 +192,42 @@ async function seed() {
       Merle Self: Simply, that I am tired, stressed, happy, scared, and excited.`
     }),
   ])
+  console.log(`seeded ${blogPosts.length} blogPosts`)
 
   const tags = await Promise.all([
-    Tag.create({ tagName: 'Identity'}),
-    Tag.create({ tagName: 'LGBTQIA+'}),
-    Tag.create({ tagName: 'Black Experiences'}),
-    Tag.create({ tagName: 'Tech Transitions'}),
-    Tag.create({ tagName: 'Coding Bootcamp'}),
+    Tag.create({ tagName: 'Identity' }),
+    Tag.create({ tagName: 'LGBTQIA+' }),
+    Tag.create({ tagName: 'Black Experiences' }),
+    Tag.create({ tagName: 'Tech Transitions' }),
+    Tag.create({ tagName: 'Coding Bootcamp' }),
   ])
-  
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${tags.length} tags`)
+
   console.log(`seeded successfully`)
+
+  //set associations
+  await blogPosts[1].addUsers([
+    users[2],
+    users[3],
+    users[4],
+    users[5],
+    users[6]
+  ])
+
+  // await blogPosts[1].addUser([users[2]])
+  // await blogPosts[2].addUser([users[3]])
+  await blogPosts[2].addUsers([
+    users[3],
+    users[5],
+    users[6]
+  ])
+
   return {
     users: {
       cody: users[0],
       murphy: users[1],
-      kelsey:users[2],
+      kelsey: users[2],
       diana: users[3],
       jessica: users[4],
       violet: users[5],
