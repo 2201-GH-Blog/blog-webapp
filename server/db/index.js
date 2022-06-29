@@ -1,7 +1,7 @@
 //this is the access point for all things database related!
 
 const db = require('./db')
-
+const Sequelize = require('sequelize')
 const User = require('./models/User')
 const BlogPost = require('./models/BlogPost')
 const Comment = require('./models/Comment')
@@ -15,11 +15,33 @@ Comment.belongsTo(User);
 BlogPost.hasMany(Comment, {foreignKey: "blogPostId"})
 Comment.belongsTo(BlogPost);
 
-User.belongsToMany(BlogPost, {through: "authors"})
-BlogPost.belongsToMany(User, {through: "authors"})
+/*
+// The Super Many-to-Many relationship
+User.belongsToMany(Profile, { through: Grant });
+Profile.belongsToMany(User, { through: Grant });
+User.hasMany(Grant);
+Grant.belongsTo(User);
+Profile.hasMany(Grant);
+Grant.belongsTo(Profile);
+*/
 
-User.belongsToMany(BlogPost, {through: "stacks"})
-BlogPost.belongsToMany(User, {through: "stacks"})
+const Author = db.define('authors', {}, { timestamps: false });
+User.belongsToMany(BlogPost, {through: Author})
+BlogPost.belongsToMany(User, {through: Author})
+User.hasMany(Author)
+Author.belongsTo(User)
+BlogPost.hasMany(Author)
+Author.belongsTo(BlogPost)
+// User.belongsToMany(BlogPost, {through: "authors"})
+// BlogPost.belongsToMany(User, {through: "authors"})
+
+
+const Stack = db.define('stacks', {}, { timestamps: false });
+User.belongsToMany(BlogPost, {through: Stack})
+BlogPost.belongsToMany(User, {through: Stack})
+
+// User.belongsToMany(BlogPost, {through: "stacks"})
+// BlogPost.belongsToMany(User, {through: "stacks"})
 
 Tag.belongsToMany(BlogPost, {through: "blogPost_tags"})
 BlogPost.belongsToMany(Tag, {through: "blogPost_tags"})
@@ -37,6 +59,8 @@ module.exports = {
     BlogPost,
     Comment,
     Subscription,
-    Tag
+    Tag,
+    Author,
+    // Stack
   },
 }

@@ -20,6 +20,9 @@ const BlogPost = db.define('blogPost', {
     },
     image: {
         type: Sequelize.TEXT,
+    },
+    summary: {
+        type: Sequelize.TEXT,
     }
 })
 
