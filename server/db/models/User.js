@@ -37,6 +37,9 @@ const User = db.define('user', {
   },
   bio: {
     type: Sequelize.TEXT,
+  },
+  pronouns: {
+    type: Sequelize.STRING,
   }
 })
 
