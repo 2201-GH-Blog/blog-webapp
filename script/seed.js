@@ -18,9 +18,7 @@ async function seed() {
     User.create({ username: 'dviglucci', firstName: 'Diana', lastName: 'Viglucci', email: 'dvigl86@gmail.com', password: '123', isAdmin: true, bio: `Diana Viglucci (they/them) is a full stack developer, community-builder, and lifelong learner. They like writing code that brings people joy, helps them learn something new, or that makes resources more accessible. Diana completed their technical training at the Grace Hopper Program, where they were best known for their Stackathon-winning rat tracker app. Prior to transitioning into tech, they worked in community-based nonprofit programs, supporting individuals and their families as they navigated mental health issues, career changes, and LGBTQ+ identity. A cum laude graduate of Cornell University, Diana finds joy in making art, spending time in nature, and turning off their phone for hours-long stretches. Their work is grounded in person-centered, trauma-informed, and intersectional perspectives - and always will be - because software is for people.` }),
     User.create({ username: 'Jessdonig', firstName: 'Jessica', lastName: 'Donig', email: 'jessdonig@gmail.com', password: '123', isAdmin: true, bio: `Jessica Donig (she/her) is a Fullstack software engineer with a background in social entrepreneurship. Prior to attending Grace Hopper, Jessica co-founded a nonprofit, worked as the first employee of a YC-backed startup, and conducted clinical research at Stanford University. From the time she entered the startup world in 2015, Jessica wanted to learn to code, but the lack of female representation in the field had made her hesitant to do so. Now that she has completed her coursework, Jessica is passionate about helping other nontraditional engineers—especially women—see themselves in tech.` }),
     User.create({ username: 'VioletCutler', firstName: 'Violet', lastName: 'Cutler', email: 'luminancesignal@gmail.com', password: '123', isAdmin: true, bio: `Violet Cutler (She/They) is a trans woman living in Philadelphia. She has been an artist and performer for more than a decade, recording videos on VHS and performing soundtracks to them on Saxophone and Synthesizer. She has also spent that time organizing DIY events in the queer and trans community and really values community building.She spent the last 4 years working in a food coop. She co-organized a successful union campaign when Covid struck. Despite this success, the dangers of the pandemic drove her to look for another way to support herself. In August of 2021, she quit her job and began studying to get into the Grace Hopper Program at Fullstack Academy. She graduated in April 2022 and looks forward to a career in Tech and Game Development. Her priorities moving forward are accessibility of the web and creating spaces in tech for other marginalized identities.` }),
-    User.create({ username: 'MerleESelf', firstName: 'Merle', lastName: 'Self', email: 'jessdonig@gmail.com ', password: '123', isAdmin: true, bio: `` }),
-    User.create({ username: 'Jessdonig', firstName: 'Jessica', lastName: 'Donig', email: 'jessdonig@gmail.com ', password: '123', isAdmin: true, bio: `` }),
-    User.create({ username: 'Jessdonig', firstName: 'Jessica', lastName: 'Donig', email: 'jessdonig@gmail.com ', password: '123', isAdmin: true, bio: `` }),
+    User.create({ username: 'MerleESelf', firstName: 'Merle', lastName: 'Self', email: 'merleself@gmail.com', password: '123', isAdmin: true, bio: `` }),
   ])
 
   // Creating Blog Posts
@@ -207,7 +205,24 @@ async function seed() {
   return {
     users: {
       cody: users[0],
-      murphy: users[1]
+      murphy: users[1],
+      kelsey:users[2],
+      diana: users[3],
+      jessica: users[4],
+      violet: users[5],
+      merle: users[6],
+    },
+    blogPosts: {
+      intro: blogPosts[0],
+      weAreEngineers: blogPosts[1],
+      interview: blogPosts[2]
+    },
+    tags: {
+      identity: tags[0],
+      lgbtqia: tags[1],
+      blackExperiences: tags[2],
+      techTransitions: tags[3],
+      codingBootcamp: tags[4],
     }
   }
 }
